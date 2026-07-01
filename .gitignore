@@ -1,0 +1,19 @@
+# Виртуальное окружение
+venv/
+.venv/
+env/
+ENV/
+
+# Переменные окружения (секреты)
+.env
+
+# Файлы настроек редактора VS Code
+.vscode/
+
+# Кэш Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
