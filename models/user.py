@@ -7,3 +7,5 @@ class User(Base):
     username = Column(String(50), unique=True, nullable=False, index=True)
     email = Column(String(255), unique=True, nullable=False, index=True)
     birth_date = Column(Date, nullable=False)
+    password_hash = Column(String(255), nullable=False, unique=True)
+    created_at = Column(Date, nullable=False)
