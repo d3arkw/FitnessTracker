@@ -1,7 +1,6 @@
 from fastapi import FastAPI
+from routers import auth
 
 app = FastAPI()
 
-@app.get("/")
-def root():
-    return {'message': 'The app is ready to use'}
+app.include_router(auth.router)
