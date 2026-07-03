@@ -131,11 +131,11 @@ http://127.0.0.1:8000/docs
 - [x] Alembic integration
 - [x] User model
 - [x] Initial migration
+- [x] User registration
+- [x] Password hashing
 
 ## 🚧 In Progress
 
-- [ ] User registration
-- [ ] Password hashing
 - [ ] User authentication (JWT)
 
 ## 📌 Planned
