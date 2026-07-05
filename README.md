@@ -24,28 +24,44 @@ This project is being developed from scratch to learn modern backend development
 ```text
 FitnessTracker/
 │
-├── alembic/
-│   └── versions/             # Database migration history
-│
 ├── app/
 │   ├── __init__.py
-│   ├── config.py             # Environment variables
-│   ├── database.py           # SQLAlchemy configuration
-│   └── main.py               # FastAPI application
+│   ├── main.py                 # FastAPI application entry point
+│   ├── config.py               # Application configuration and environment variables
+│   ├── database.py             # Database connection and session management
+│   ├── dependencies.py         # Shared FastAPI dependencies
+│   │
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── user.py             # SQLAlchemy database models
+│   │
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   └── user.py             # Pydantic request and response schemas
+│   │
+│   ├── routers/
+│   │   ├── __init__.py
+│   │   └── auth.py             # Authentication API endpoints
+│   │
+│   ├── services/
+│   │   ├── __init__.py
+│   │   └── auth_service.py     # Authentication business logic
+│   │
+│   └── utils/
+│       ├── __init__.py
+│       ├── security.py         # Password hashing and verification
+│       └── jwt.py              # JWT token generation and validation
 │
-├── models/
-│   ├── __init__.py
-│   └── user.py               # SQLAlchemy models
+├── alembic/
+│   ├── versions/               # Database migration files
+│   ├── env.py                  # Alembic environment configuration
+│   └── script.py.mako          # Migration template
 │
-├── routers/                  # API routes
-│
-├── schemas/                  # Pydantic schemas
-│
-├── .env
-├── .gitignore
-├── alembic.ini
-├── requirements.txt
-└── README.md
+├── .env                        # Environment variables
+├── alembic.ini                 # Alembic configuration
+├── requirements.txt            # Project dependencies
+├── README.md                   # Project documentation
+└── .gitignore                  # Git ignore rules
 ```
 
 ---
