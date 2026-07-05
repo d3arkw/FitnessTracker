@@ -67,7 +67,7 @@ FitnessTracker/
 ## Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/FitnessTracker.git
+git clone https://github.com/d3arkw/FitnessTracker.git
 cd FitnessTracker
 ```
 
