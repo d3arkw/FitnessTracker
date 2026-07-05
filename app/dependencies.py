@@ -1,12 +1,17 @@
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from app.database import AsyncSessionLocal
+from app.models.user import User
+from app.utils.jwt import decode_access_token
+
 from fastapi import Depends, HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import select
-from app.database import get_db
-from models.user import User
-from utils.jwt import decode_access_token
+from sqlalchemy.ext.asyncio import AsyncSession
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+
+async def get_db():
+    async with AsyncSessionLocal() as session:
+        yield session
 
 async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
     try:

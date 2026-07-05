@@ -1,11 +1,13 @@
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
-from models.user import User
-from schemas.user import UserCreate
-from utils.security import hash_password, verify_password
+from app.models.user import User
+from app.schemas.user import UserCreate
+from app.utils.jwt import create_access_token
+from app.utils.security import hash_password, verify_password
+
 from fastapi import HTTPException
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
-from utils.jwt import create_access_token
+
 
 async def register_user(db: AsyncSession, user_data: UserCreate):
     result = await db.execute(
