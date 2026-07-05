@@ -133,15 +133,15 @@ http://127.0.0.1:8000/docs
 - [x] Initial migration
 - [x] User registration
 - [x] Password hashing
+- [x] User authentication (JWT)
 
 ## 🚧 In Progress
 
-- [ ] User authentication (JWT)
+- [ ] Workout CRUD
+- [ ] Exercise CRUD
 
 ## 📌 Planned
 
-- [ ] Workout CRUD
-- [ ] Exercise CRUD
 - [ ] Workout history
 - [ ] Progress statistics
 - [ ] Nutrition tracking
