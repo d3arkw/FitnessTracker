@@ -3,6 +3,7 @@ from datetime import datetime
 from app.database import Base
 
 from sqlalchemy import Column, Integer, String, DateTime, Date
+from sqlalchemy.orm import relationship
 
 
 class User(Base):
@@ -13,3 +14,4 @@ class User(Base):
     birth_date = Column(Date, nullable=False)
     password_hash = Column(String(255), nullable=False, unique=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    exercise = relationship("Exercise",back_populates="user", cascade="all, delete-orphan")
