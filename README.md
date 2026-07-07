@@ -33,19 +33,23 @@ FitnessTracker/
 │   │
 │   ├── models/
 │   │   ├── __init__.py
-│   │   └── user.py             # SQLAlchemy database models
+│   │   └── user.py       # SQLAlchemy database models
+│   │   └── exercises.py  #SQLalchemy database models
 │   │
 │   ├── schemas/
 │   │   ├── __init__.py
 │   │   └── user.py             # Pydantic request and response schemas
+│   │   └── exercises.py        # Pydantic request and response schemas
 │   │
 │   ├── routers/
 │   │   ├── __init__.py
 │   │   └── auth.py             # Authentication API endpoints
+│   │   └── exercises.py        # Exercises API endpoints
 │   │
 │   ├── services/
 │   │   ├── __init__.py
 │   │   └── auth_service.py     # Authentication business logic
+│   │   └── exercise_service.py # Business logic for exercises
 │   │
 │   └── utils/
 │       ├── __init__.py
