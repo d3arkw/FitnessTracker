@@ -154,11 +154,10 @@ http://127.0.0.1:8000/docs
 - [x] User registration
 - [x] Password hashing
 - [x] User authentication (JWT)
-
+- [x] Exercise CRUD
 ## 🚧 In Progress
 
 - [ ] Workout CRUD
-- [ ] Exercise CRUD
 
 ## 📌 Planned
 
