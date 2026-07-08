@@ -16,7 +16,7 @@ async def get_all(db: AsyncSession = Depends(get_db), current_user: User = Depen
 @router.post("/")
 async def create(exercise_data: ExerciseCreate, current_user: User = Depends(get_current_user),
                  db: AsyncSession = Depends(get_db)) -> ExerciseResponse:
-    return await create_exercise(db=db, exercise_data=exercise_data, current_user=current_user)
+    return await create_exercise(db=db, exercise=exercise_data, current_user=current_user)
 
 
 @router.put("/{exercise_id}")

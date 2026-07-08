@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship,Mapped,mapped_column
 from datetime import datetime
 
 class Exercise(Base):
-    __tablename__ = 'exercises'
+    __tablename__ = 'exercise'
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable= False)
     description: Mapped[str] = mapped_column(Text)

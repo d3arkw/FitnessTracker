@@ -14,4 +14,5 @@ class User(Base):
     birth_date = Column(Date, nullable=False)
     password_hash = Column(String(255), nullable=False, unique=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
-    exercise = relationship("Exercise",back_populates="user", cascade="all, delete-orphan")
+    exercises = relationship("Exercise",back_populates="user", cascade="all, delete-orphan")
+    workouts = relationship("Workout", back_populates="user", cascade="all, delete-orphan")
