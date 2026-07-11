@@ -1,14 +1,22 @@
 from logging.config import fileConfig
 from app.database import Base,DATABASE_URL
-from app.models.user import User
+import app.models
 from sqlalchemy import engine_from_config, create_engine
 from sqlalchemy import pool
+from dotenv import load_dotenv
 
 from alembic import context
 
 config = context.config
-DATABASE_URL = config.get_main_option("sqlalchemy.url")
-engine = create_engine(DATABASE_URL)
+
+SYNC_DATABASE_URL = DATABASE_URL.replace("+asyncpg", "")
+
+
+config.set_main_option("sqlalchemy.url", SYNC_DATABASE_URL)
+
+engine = create_engine(SYNC_DATABASE_URL, poolclass=pool.NullPool)
+
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 

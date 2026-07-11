@@ -42,5 +42,4 @@ async def delete_exercise(db: AsyncSession, current_user: User, exercise_id: int
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
     await db.delete(exercise)
     await db.commit()
-    await db.refresh(exercise)
     return {"message": "Exercise deleted"}

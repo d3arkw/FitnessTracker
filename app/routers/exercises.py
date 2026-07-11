@@ -10,7 +10,7 @@ router = APIRouter(tags=["exercises"], prefix="/exercises")
 
 @router.get("/")
 async def get_all(db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)) -> list[ExerciseResponse]:
-    return await get_exercise(db=db, current_user=current_user)
+    return await get_exercises(db=db, current_user=current_user)
 
 
 @router.post("/")

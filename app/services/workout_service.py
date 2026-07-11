@@ -37,5 +37,4 @@ async def delete_workout(workout_id: int, db: AsyncSession, current_user: User):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Workout not found")
     await db.delete(workout)
     await db.commit()
-    await db.refresh(workout)
     return {"message":"Workout deleted"}
