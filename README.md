@@ -33,23 +33,31 @@ FitnessTracker/
 │   │
 │   ├── models/
 │   │   ├── __init__.py
-│   │   └── user.py       # SQLAlchemy database models
-│   │   └── exercises.py  #SQLalchemy database models
+│   │   ├── user.py             # SQLAlchemy database models
+│   │   ├── exercises.py        # SQLalchemy database models
+│   │   ├── workoutset.py       # # SQLAlchemy database models
+│   │   └── workouts.py         # # SQLAlchemy database models
 │   │
 │   ├── schemas/
 │   │   ├── __init__.py
-│   │   └── user.py             # Pydantic request and response schemas
-│   │   └── exercises.py        # Pydantic request and response schemas
+│   │   ├── user.py             # Pydantic request and response schemas
+│   │   ├── exercises.py        # Pydantic request and response schemas
+│   │   ├── statistic.py        # Pydantic request and response schemas
+│   │   └── workouts.py         # Pydantic request and response schemas
 │   │
 │   ├── routers/
 │   │   ├── __init__.py
-│   │   └── auth.py             # Authentication API endpoints
-│   │   └── exercises.py        # Exercises API endpoints
+│   │   ├── auth.py             # Authentication API endpoints
+│   │   ├── exercises.py        # Exercises API endpoints
+│   │   ├── statistics.py       # Statistics API endpoints
+│   │   └── workouts.py         # Workouts API endpoints
 │   │
 │   ├── services/
 │   │   ├── __init__.py
-│   │   └── auth_service.py     # Authentication business logic
-│   │   └── exercise_service.py # Business logic for exercises
+│   │   ├── auth_service.py     # Authentication business logic
+│   │   ├── exercise_service.py # Business logic for exercises
+│   │   ├── statistics_service.py # Statistics business logic
+│   │   └── workout_service.py  # Business logic for workout
 │   │
 │   └── utils/
 │       ├── __init__.py
@@ -65,6 +73,7 @@ FitnessTracker/
 ├── alembic.ini                 # Alembic configuration
 ├── requirements.txt            # Project dependencies
 ├── README.md                   # Project documentation
+├── Dockerfile                  # Docker file
 └── .gitignore                  # Git ignore rules
 ```
 
@@ -155,14 +164,14 @@ http://127.0.0.1:8000/docs
 - [x] Password hashing
 - [x] User authentication (JWT)
 - [x] Exercise CRUD
+- [x] Workout CRUD
+- [x] Progress statistics
+- [x] Docker support
 ## 🚧 In Progress
 
-- [ ] Workout CRUD
-
+- [ ] Workout history
 ## 📌 Planned
 
-- [ ] Workout history
-- [ ] Progress statistics
 - [ ] Nutrition tracking
 - [ ] Input validation
 - [ ] Docker support
