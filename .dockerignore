@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Tests
+.pytest_cache/
+.coverage
+
+# Environment
+.env
+
+# Alembic cache
+*.sqlite3
