@@ -8,11 +8,11 @@ from app.models.user import User
 
 
 async def get_statistics(db: AsyncSession, current_user: User) -> StatisticResponse:
-    result = await db.execute(select(func.count(Workout.id).where(Workout.user_id == current_user.id)))
+    result = await db.execute(select(func.count(Workout.id)).where(Workout.user_id == current_user.id))
     total_workouts = result.scalar_one()
     result = await db.execute(select(
-        func.max(WorkoutSet.weight).join(Exercise, WorkoutSet.exercise_id == Exercise.id).where(
-            func.lower(Exercise.name) == "bench press")))
+        func.max(WorkoutSet.weight)).join(Exercise, WorkoutSet.exercise_id == Exercise.id).where(
+            func.lower(Exercise.name) == "bench press"))
     best_bench_press = result.scalar() or 0
     result = await db.execute(select(func.count(func.distinct(WorkoutSet.exercise_id))))
     total_exercises = result.scalar_one()

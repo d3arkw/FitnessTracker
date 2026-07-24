@@ -18,8 +18,8 @@ async def get_workouts(db: AsyncSession,current_user: User):
     workouts = result.scalars().all()
     return workouts
 
-async def update_workout(workout_data: WorkoutUpdate, db: AsyncSession,current_user: User,exercise_id: int):
-    result = await db.execute(select(Workout).where(Workout.id == exercise_id, Workout.user_id == current_user.id))
+async def update_workout(workout_data: WorkoutUpdate, db: AsyncSession,current_user: User,workout_id: int):
+    result = await db.execute(select(Workout).where(Workout.id == workout_id, Workout.user_id == current_user.id))
     workout = result.scalars().first()
     if not workout:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Workout not found")

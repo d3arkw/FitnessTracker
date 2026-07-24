@@ -6,14 +6,24 @@ ENV/
 
 # Переменные окружения (секреты)
 .env
+.env.test
 
-# Файлы настроек редактора VS Code
+# Настройки IDE (VS Code & PyCharm)
 .vscode/
+.idea/
 
-# Кэш Python
+# Кэш Python и Pytest
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .pytest_cache/
 .mypy_cache/
+.coverage
+
+# Локальные базы данных
+*.db
+*.sqlite3
+
+# Системные файлы macOS
+.DS_Store
