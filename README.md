@@ -8,14 +8,17 @@ This project is being developed from scratch to learn modern backend development
 
 # 🚀 Tech Stack
 
-- Python 3.13
+- Python 3.14
 - FastAPI
+- SQLAlchemy 2.0
 - PostgreSQL
-- SQLAlchemy
 - Alembic
-- Pydantic
-- Uvicorn
-- python-dotenv
+- Docker
+- Docker Compose
+- JWT Authentication
+- Pytest
+- AsyncPG
+- Pydantic v2
 
 ---
 
@@ -26,55 +29,67 @@ FitnessTracker/
 │
 ├── app/
 │   ├── __init__.py
-│   ├── main.py                 # FastAPI application entry point
-│   ├── config.py               # Application configuration and environment variables
-│   ├── database.py             # Database connection and session management
-│   ├── dependencies.py         # Shared FastAPI dependencies
+│   ├── main.py                   # FastAPI application entry point
+│   ├── config.py                 # Application configuration and environment variables
+│   ├── database.py               # Database connection and session management
+│   ├── dependencies.py           # Shared FastAPI dependencies
 │   │
 │   ├── models/
 │   │   ├── __init__.py
-│   │   ├── user.py             # SQLAlchemy database models
-│   │   ├── exercises.py        # SQLalchemy database models
-│   │   ├── workoutset.py       # # SQLAlchemy database models
-│   │   └── workouts.py         # # SQLAlchemy database models
+│   │   ├── exercise.py           # SQLAlchemy database models
+│   │   ├── user.py               # SQLAlchemy database models
+│   │   ├── workout.py            # SQLAlchemy database models
+│   │   └── workoutset.py         # SQLAlchemy database models
 │   │
 │   ├── schemas/
 │   │   ├── __init__.py
-│   │   ├── user.py             # Pydantic request and response schemas
-│   │   ├── exercises.py        # Pydantic request and response schemas
-│   │   ├── statistic.py        # Pydantic request and response schemas
-│   │   └── workouts.py         # Pydantic request and response schemas
+│   │   ├── exercises.py          # Pydantic request and response schemas
+│   │   ├── statistic.py          # Pydantic request and response schemas
+│   │   ├── user.py               # Pydantic request and response schemas
+│   │   └── workouts.py           # Pydantic request and response schemas
 │   │
 │   ├── routers/
 │   │   ├── __init__.py
-│   │   ├── auth.py             # Authentication API endpoints
-│   │   ├── exercises.py        # Exercises API endpoints
-│   │   ├── statistics.py       # Statistics API endpoints
-│   │   └── workouts.py         # Workouts API endpoints
+│   │   ├── auth.py               # Authentication API endpoints
+│   │   ├── exercises.py          # Exercises API endpoints
+│   │   ├── statistics.py         # Statistics API endpoints
+│   │   └── workouts.py           # Workouts API endpoints
 │   │
 │   ├── services/
 │   │   ├── __init__.py
-│   │   ├── auth_service.py     # Authentication business logic
-│   │   ├── exercise_service.py # Business logic for exercises
+│   │   ├── auth_service.py       # Authentication business logic
+│   │   ├── exercise_service.py   # Business logic for exercises
 │   │   ├── statistics_service.py # Statistics business logic
-│   │   └── workout_service.py  # Business logic for workout
+│   │   └── workout_service.py    # Business logic for workout
 │   │
 │   └── utils/
 │       ├── __init__.py
-│       ├── security.py         # Password hashing and verification
-│       └── jwt.py              # JWT token generation and validation
+│       ├── jwt.py                # JWT token generation and validation
+│       └── security.py           # Password hashing and verification
 │
-├── alembic/
-│   ├── versions/               # Database migration files
-│   ├── env.py                  # Alembic environment configuration
-│   └── script.py.mako          # Migration template
+├── tests/
+│   ├── conftest.py               # Pytest fixtures and test database setup
+│   ├── test_auth.py              # Authentication tests
+│   ├── test_exercise.py          # Exercise service tests
+│   ├── test_statistic.py         # Statistics service tests
+│   └── test_workout.py           # Workout service tests
 │
-├── .env                        # Environment variables
-├── alembic.ini                 # Alembic configuration
-├── requirements.txt            # Project dependencies
-├── README.md                   # Project documentation
-├── Dockerfile                  # Docker file
-└── .gitignore                  # Git ignore rules
+├── alembic/                      # Database migration files
+│   ├── versions/
+│   ├── env.py                    # Alembic environment configuration
+│   └── script.py.mako            # Migration template
+│
+├── .dockerignore
+├── .env                          # Environment variables
+├── .env.test                     # Test environment configuration
+├── .gitignore
+├── alembic.ini                   # Alembic configuration
+├── docker-compose.yaml
+├── Dockerfile                    # Docker file
+├── pyproject.toml                # Project metadata and tool configuration (pytest)
+├── README.md                     # Project documentation
+└── requirements.txt              # Project dependencies
+
 ```
 
 ---
@@ -91,62 +106,52 @@ FitnessTracker/
 
 ---
 
-# ⚙️ Installation
+# 🚀 Installation
 
-## Clone the repository
+## 1. Clone the repository
 
 ```bash
 git clone https://github.com/d3arkw/FitnessTracker.git
 cd FitnessTracker
 ```
 
-## Create a virtual environment
+## 2. Configure environment variables
 
-```bash
-python -m venv venv
-```
-
-### macOS / Linux
-
-```bash
-source venv/bin/activate
-```
-
-### Windows
-
-```bash
-venv\Scripts\activate
-```
-
-## Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-## Create a `.env` file
+Create a `.env` file in the project root:
 
 ```env
-DATABASE_URL=postgresql+psycopg2://YOUR_USER:YOUR_PASSWORD@localhost:5432/YOUR_DATABASE
+DB_HOST=db
+DB_PORT=5432
+DB_NAME=fitnesstracker
+DB_USER=postgres
+DB_PASSWORD=your_password
+SECRET_KEY=your_secret_key
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
-## Apply database migrations
+## 3. Build Docker containers
 
 ```bash
-alembic upgrade head
+docker compose build
 ```
 
-## Run the development server
+## 4. Start the application
 
 ```bash
-uvicorn app.main:app --reload
+docker compose up -d
 ```
 
-Swagger documentation will be available at:
+## 5. Check running containers
 
+```bash
+docker compose ps
 ```
-http://127.0.0.1:8000/docs
-```
+
+If everything started successfully, open:
+
+- Swagger UI: http://localhost:8080/docs
+- ReDoc: http://localhost:8080/redoc
 
 ---
 
@@ -167,6 +172,7 @@ http://127.0.0.1:8000/docs
 - [x] Workout CRUD
 - [x] Progress statistics
 - [x] Docker support
+- [x] Test coverage
 ## 🚧 In Progress
 
 - [ ] Workout history
@@ -174,8 +180,6 @@ http://127.0.0.1:8000/docs
 
 - [ ] Nutrition tracking
 - [ ] Input validation
-- [ ] Docker support
-- [ ] Unit tests
 - [ ] CI/CD
 - [ ] Deployment
 
