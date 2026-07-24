@@ -173,13 +173,13 @@ If everything started successfully, open:
 - [x] Progress statistics
 - [x] Docker support
 - [x] Test coverage
+- [x] Input validation
 ## 🚧 In Progress
 
 - [ ] Workout history
 ## 📌 Planned
 
 - [ ] Nutrition tracking
-- [ ] Input validation
 - [ ] CI/CD
 - [ ] Deployment
 
