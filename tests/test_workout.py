@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from app.models.workout import Workout
-from app.services.workout_service import create_workout, get_workouts, update_workout, delete_workout
-from app.schemas.workouts import WorkoutCreate, WorkoutUpdate, WorkoutResponse
+from app.services.workout_service import create_workout, get_workouts, update_workout, delete_workout, get_workout_history
+from app.schemas.workouts import WorkoutCreate, WorkoutUpdate, WorkoutResponse, WorkoutsHistory
 from sqlalchemy import select
 import pytest
 import datetime
@@ -57,3 +57,10 @@ async def test_delete_workout(db_session, test_user, only_workout):
     query = await db_session.execute(select(Workout).where(Workout.id == 1))
     db_result = query.scalars().first()
     assert db_result is None
+
+@pytest.mark.asyncio
+async def test_get_workout_history(db_session, test_user, seed_fitness):
+    result = await get_workout_history(db=db_session, current_user=test_user)
+    assert result is not None
+    assert len(result) == 1
+    assert result[0].quantity == 2

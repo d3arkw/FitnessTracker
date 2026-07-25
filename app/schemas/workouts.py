@@ -20,3 +20,9 @@ class WorkoutResponse(BaseModel):
     created_at: datetime.datetime
     user_id: int
     model_config = ConfigDict(from_attributes=True)
+
+class WorkoutsHistory(BaseModel):
+    title: str
+    date: datetime.date
+    quantity: int
+    volume: int

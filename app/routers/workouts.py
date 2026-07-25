@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.schemas.workouts import (WorkoutCreate, WorkoutUpdate, WorkoutResponse)
+from app.schemas.workouts import (WorkoutCreate, WorkoutUpdate, WorkoutResponse,WorkoutsHistory)
 from app.models.user import User
-from app.services.workout_service import create_workout, get_workouts, update_workout, delete_workout
+from app.services.workout_service import create_workout, get_workouts, update_workout, delete_workout,get_workout_history
 from app.dependencies import get_db, get_current_user
 from typing import List
 
@@ -24,3 +24,7 @@ async def update(workout_data: WorkoutUpdate,exercise_id: int, db: AsyncSession 
 @router.delete("/")
 async def delete(workout_id:int, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
     return await delete_workout(db=db, workout_id=workout_id, current_user=current_user)
+
+@router.get("/history",response_model=List[WorkoutsHistory])
+async def get_history(db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+    return await get_workout_history(db=db, current_user=current_user)
