@@ -1,24 +1,37 @@
 # 🏋️ Fitness Tracker API
 
-A RESTful backend API for a fitness tracking application built with **FastAPI**, **PostgreSQL**, and **SQLAlchemy**.
+A RESTful backend API for a fitness tracking application built with **FastAPI**, **PostgreSQL**, and **SQLAlchemy 2.0**.
 
-This project is being developed from scratch to learn modern backend development, database design, and REST API architecture using Python.
+The project demonstrates modern backend development practices using asynchronous Python, database migrations, authentication, automated testing, containerization, and continuous integration.
 
 ---
 
 # 🚀 Tech Stack
 
+## Backend
 - Python 3.14
 - FastAPI
 - SQLAlchemy 2.0
+- Pydantic v2
+- AsyncPG
+
+## Database
 - PostgreSQL
 - Alembic
+
+## Authentication
+- JWT Authentication
+- Password hashing with bcrypt
+
+## Testing
+- Pytest
+- Async test environment
+- Service layer testing
+
+## DevOps
 - Docker
 - Docker Compose
-- JWT Authentication
-- Pytest
-- AsyncPG
-- Pydantic v2
+- GitHub Actions (CI)
 
 ---
 
@@ -27,82 +40,81 @@ This project is being developed from scratch to learn modern backend development
 ```text
 FitnessTracker/
 │
+├── .github/
+│   └── workflows/
+│       └── ci.yml                # GitHub Actions CI pipeline
+│
 ├── app/
 │   ├── __init__.py
 │   ├── main.py                   # FastAPI application entry point
-│   ├── config.py                 # Application configuration and environment variables
+│   ├── config.py                 # Environment configuration
 │   ├── database.py               # Database connection and session management
 │   ├── dependencies.py           # Shared FastAPI dependencies
 │   │
-│   ├── models/
-│   │   ├── __init__.py
-│   │   ├── exercise.py           # SQLAlchemy database models
-│   │   ├── user.py               # SQLAlchemy database models
-│   │   ├── workout.py            # SQLAlchemy database models
-│   │   └── workoutset.py         # SQLAlchemy database models
+│   ├── models/                   # SQLAlchemy database models
 │   │
-│   ├── schemas/
-│   │   ├── __init__.py
-│   │   ├── exercises.py          # Pydantic request and response schemas
-│   │   ├── statistic.py          # Pydantic request and response schemas
-│   │   ├── user.py               # Pydantic request and response schemas
-│   │   └── workouts.py           # Pydantic request and response schemas
+│   ├── schemas/                  # Pydantic request and response schemas
 │   │
-│   ├── routers/
-│   │   ├── __init__.py
-│   │   ├── auth.py               # Authentication API endpoints
-│   │   ├── exercises.py          # Exercises API endpoints
-│   │   ├── statistics.py         # Statistics API endpoints
-│   │   └── workouts.py           # Workouts API endpoints
+│   ├── routers/                  # API endpoints
 │   │
-│   ├── services/
-│   │   ├── __init__.py
-│   │   ├── auth_service.py       # Authentication business logic
-│   │   ├── exercise_service.py   # Business logic for exercises
-│   │   ├── statistics_service.py # Statistics business logic
-│   │   └── workout_service.py    # Business logic for workout
+│   ├── services/                 # Business logic layer
 │   │
-│   └── utils/
-│       ├── __init__.py
-│       ├── jwt.py                # JWT token generation and validation
-│       └── security.py           # Password hashing and verification
+│   └── utils/                    # JWT and security utilities
 │
 ├── tests/
 │   ├── conftest.py               # Pytest fixtures and test database setup
 │   ├── test_auth.py              # Authentication tests
-│   ├── test_exercise.py          # Exercise service tests
-│   ├── test_statistic.py         # Statistics service tests
-│   └── test_workout.py           # Workout service tests
+│   ├── test_exercise.py          # Exercise tests
+│   ├── test_statistic.py         # Statistics tests
+│   └── test_workout.py           # Workout tests
 │
-├── alembic/                      # Database migration files
-│   ├── versions/
-│   ├── env.py                    # Alembic environment configuration
+├── alembic/
+│   ├── versions/                 # Migration files
+│   ├── env.py                    # Alembic configuration
 │   └── script.py.mako            # Migration template
 │
 ├── .dockerignore
-├── .env                          # Environment variables
-├── .env.test                     # Test environment configuration
+├── .env.example                  # Environment variables template
 ├── .gitignore
 ├── alembic.ini                   # Alembic configuration
-├── docker-compose.yaml
-├── Dockerfile                    # Docker file
-├── pyproject.toml                # Project metadata and tool configuration (pytest)
-├── README.md                     # Project documentation
-└── requirements.txt              # Project dependencies
-
+├── docker-compose.yml            # Docker services configuration
+├── Dockerfile                    # Application container configuration
+├── pyproject.toml                # Project configuration and tools
+├── requirements.txt              # Python dependencies
+└── README.md
 ```
 
 ---
 
-# ✨ Current Features
+# ✨ Features
 
-- ✅ FastAPI application initialized
-- ✅ PostgreSQL connected
-- ✅ Environment variables with `.env`
-- ✅ SQLAlchemy Engine, Session and Base configured
-- ✅ Alembic configured
-- ✅ Initial `User` model
-- ✅ First database migration created and applied
+## Authentication
+- User registration
+- Secure password hashing
+- JWT authentication
+- Protected API endpoints
+
+## Exercises & Workouts
+- Exercise CRUD operations
+- Workout CRUD operations
+- Workout sets tracking
+- Workout history
+
+## Statistics
+- Exercise progress tracking
+- Maximum weight statistics
+- Workout analytics
+
+## Database
+- PostgreSQL integration
+- SQLAlchemy ORM
+- Async database operations
+- Alembic migrations
+
+## Development
+- Dockerized application
+- Automated testing
+- Continuous Integration with GitHub Actions
 
 ---
 
@@ -112,12 +124,21 @@ FitnessTracker/
 
 ```bash
 git clone https://github.com/d3arkw/FitnessTracker.git
+
 cd FitnessTracker
 ```
 
+---
+
 ## 2. Configure environment variables
 
-Create a `.env` file in the project root:
+Create `.env` file from `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+Configure required variables:
 
 ```env
 DB_HOST=db
@@ -125,10 +146,13 @@ DB_PORT=5432
 DB_NAME=fitnesstracker
 DB_USER=postgres
 DB_PASSWORD=your_password
+
 SECRET_KEY=your_secret_key
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
+
+---
 
 ## 3. Build Docker containers
 
@@ -136,11 +160,15 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 docker compose build
 ```
 
+---
+
 ## 4. Start the application
 
 ```bash
 docker compose up -d
 ```
+
+---
 
 ## 5. Check running containers
 
@@ -150,8 +178,56 @@ docker compose ps
 
 If everything started successfully, open:
 
-- Swagger UI: http://localhost:8080/docs
-- ReDoc: http://localhost:8080/redoc
+Swagger UI:
+
+```
+http://localhost:8080/docs
+```
+
+ReDoc:
+
+```
+http://localhost:8080/redoc
+```
+
+---
+
+# 🧪 Testing
+
+The project uses **Pytest** for automated testing.
+
+Run tests inside Docker:
+
+```bash
+docker compose run --rm <service_name> pytest
+```
+
+Tests cover:
+
+- Authentication logic
+- Exercise services
+- Workout services
+- Statistics services
+
+---
+
+# ⚙️ Continuous Integration
+
+The project uses **GitHub Actions** for automated CI.
+
+The CI pipeline runs on:
+
+- Push to the `main` branch
+- Pull requests
+
+Workflow steps:
+
+- Checkout repository
+- Configure environment variables
+- Prepare Docker environment
+- Run automated tests with Pytest
+
+This ensures that new changes do not break existing functionality.
 
 ---
 
@@ -162,39 +238,49 @@ If everything started successfully, open:
 - [x] Project setup
 - [x] PostgreSQL integration
 - [x] SQLAlchemy configuration
-- [x] Alembic integration
+- [x] Alembic migrations
 - [x] User model
-- [x] Initial migration
 - [x] User registration
 - [x] Password hashing
-- [x] User authentication (JWT)
+- [x] JWT authentication
 - [x] Exercise CRUD
 - [x] Workout CRUD
-- [x] Progress statistics
-- [x] Docker support
-- [x] Test coverage
-- [x] Input validation
 - [x] Workout history
-## 🚧 In Progress
+- [x] Progress statistics
+- [x] Input validation with Pydantic
+- [x] Docker support
+- [x] Automated testing with Pytest
+- [x] GitHub Actions CI pipeline
 
-- [ ] CI/CD
+## 🚀 Future Improvements
 
-## 📌 Planned
-
-- [ ] Deployment
+- [ ] Production deployment
+- [ ] Refresh token mechanism
+- [ ] Redis integration
+- [ ] Background task processing
 
 ---
 
 # 📚 Learning Goals
 
-The main purpose of this project is to gain hands-on experience with:
+This project provided practical experience with:
 
-- FastAPI
+- Modern Python backend development
+- FastAPI architecture
+- Async programming
 - SQLAlchemy ORM
-- PostgreSQL
+- PostgreSQL database design
 - Alembic migrations
 - REST API development
-- Backend architecture
-- Authentication & Authorization
-- Clean project structure
+- Authentication and authorization
+- Service-layer architecture
+- Automated testing
+- Docker and Docker Compose
+- GitHub Actions CI
 - Git workflow
+
+---
+
+# 📄 License
+
+This project is created for portfolio and educational purposes.
