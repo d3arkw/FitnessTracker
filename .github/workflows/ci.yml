@@ -21,7 +21,7 @@ jobs:
         run: docker compose build backend
 
       - name: Run test
-        run: docker compose run --rm backend pytest
+        run: docker compose run --rm --no-deps backend pytest
 
       - name: Stop container
         if: always()
