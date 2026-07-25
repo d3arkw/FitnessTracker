@@ -5,3 +5,7 @@ class StatisticResponse(BaseModel):
     best_bench_press: float
     total_exercises: int
     total_volume: float
+
+class BestResult(BaseModel):
+    exercise: str
+    max_weight: float
