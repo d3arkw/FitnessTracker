@@ -1,6 +1,9 @@
+import os
 from dotenv import load_dotenv
-
-load_dotenv(".env.test", override=True)
+if os.path.exists(".env.test"):
+    load_dotenv(".env.test", override=True)
+else:
+    load_dotenv(".env.example", override=True)
 import pytest
 import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
