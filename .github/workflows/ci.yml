@@ -24,4 +24,5 @@ jobs:
         run: docker compose run --rm backend pytest
 
       - name: Stop container
+        if: always()
         run: docker compose down -v
