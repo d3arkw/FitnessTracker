@@ -21,6 +21,6 @@ async def login(db: AsyncSession = Depends(get_db), form_data: OAuth2PasswordReq
     return await login_user(db=db, email=form_data.username, password=form_data.password)
 
 
-@router.get("/me")
+@router.get("/me", response_model=UserResponse)
 async def me(current_user: User = Depends(get_current_user)):
     return current_user

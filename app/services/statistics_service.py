@@ -8,15 +8,27 @@ from app.models.user import User
 
 
 async def get_statistics(db: AsyncSession, current_user: User) -> StatisticResponse:
-    result = await db.execute(select(func.count(Workout.id)).where(Workout.user_id == current_user.id))
+    user_id = current_user.id
+    result = await db.execute(select(func.count(Workout.id)).where(Workout.user_id == user_id))
     total_workouts = result.scalar_one()
-    result = await db.execute(select(
-        func.max(WorkoutSet.weight)).join(Exercise, WorkoutSet.exercise_id == Exercise.id).where(
-        func.lower(Exercise.name) == "bench press"))
+    result = await db.execute(
+        select(func.max(WorkoutSet.weight))
+        .join(Exercise, WorkoutSet.exercise_id == Exercise.id)
+        .join(Workout, WorkoutSet.workout_id == Workout.id)
+        .where(Workout.user_id == user_id, func.lower(Exercise.name) == "bench press")
+    )
     best_bench_press = result.scalar() or 0
-    result = await db.execute(select(func.count(func.distinct(WorkoutSet.exercise_id))))
+    result = await db.execute(
+        select(func.count(func.distinct(WorkoutSet.exercise_id)))
+        .join(Workout, WorkoutSet.workout_id == Workout.id)
+        .where(Workout.user_id == user_id)
+    )
     total_exercises = result.scalar_one()
-    result = await db.execute(select(func.sum(WorkoutSet.weight * WorkoutSet.reps)))
+    result = await db.execute(
+        select(func.sum(WorkoutSet.weight * WorkoutSet.reps))
+        .join(Workout, WorkoutSet.workout_id == Workout.id)
+        .where(Workout.user_id == user_id)
+    )
     total_volume = result.scalar() or 0
     return StatisticResponse(total_workouts=total_workouts, total_exercises=total_exercises,
                              best_bench_press=best_bench_press, total_volume=total_volume)

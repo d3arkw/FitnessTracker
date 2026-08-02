@@ -12,7 +12,7 @@ class User(Base):
     username = Column(String(50), unique=True, nullable=False, index=True)
     email = Column(String(255), unique=True, nullable=False, index=True)
     birth_date = Column(Date, nullable=False)
-    password_hash = Column(String(255), nullable=False, unique=True)
+    password_hash = Column(String(255), nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     exercises = relationship("Exercise",back_populates="user", cascade="all, delete-orphan")
     workouts = relationship("Workout", back_populates="user", cascade="all, delete-orphan")

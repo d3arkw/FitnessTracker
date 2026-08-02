@@ -17,9 +17,9 @@ async def get(db: AsyncSession = Depends(get_db), current_user: User = Depends(g
 async def create(workout_data: WorkoutCreate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
     return await create_workout(db=db, current_user=current_user, workout=workout_data)
 
-@router.put("/", response_model=WorkoutResponse)
-async def update(workout_data: WorkoutUpdate,exercise_id: int, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
-    return await update_workout(db=db, exercise_id=exercise_id, workout=workout_data, current_user=current_user)
+@router.put("/{workout_id}", response_model=WorkoutResponse)
+async def update(workout_id: int, workout_data: WorkoutUpdate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+    return await update_workout(workout_data=workout_data, db=db, current_user=current_user, workout_id=workout_id)
 
 @router.delete("/")
 async def delete(workout_id:int, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
